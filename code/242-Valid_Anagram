@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if(s.size() != t.size()) return false;
+        if(s.size() == 0) return true;
+        quickSort(s,0,s.size()-1);
+        quickSort(t,0,s.size()-1);
+        if(s != t) return false;
+        return true;
+    }
+    
+    void quickSort(string &arr, int left, int right) {
+      int i = left, j = right;
+      int tmp;
+      int pivot = arr[(left + right) / 2];
+ 
+      /* partition */
+      while (i <= j) {
+            while (arr[i] < pivot)
+                  i++;
+            while (arr[j] > pivot)
+                  j--;
+            if (i <= j) {
+                  tmp = arr[i];
+                  arr[i] = arr[j];
+                  arr[j] = tmp;
+                  i++;
+                  j--;
+            }
+      }
+ 
+      /* recursion */
+      if (left < j)
+            quickSort(arr, left, j);
+      if (i < right)
+            quickSort(arr, i, right);
+}
+};
