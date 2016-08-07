@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int findPeakElement(const vector<int> &num) {
+        int oIntTmp = NULL;
+        
+        if(num.size() == 1)
+            oIntTmp = 0;
+        else if(num.size() == 2)
+            if(num.at(0) >= num.at(1))
+                oIntTmp = 0;
+            else
+                oIntTmp = 1;
+        else
+            for(unsigned int i = 0; i < num.size(); i++)
+            {
+                if(i==0) // start of vector
+                {
+                    if(num.at(i) > num.at(i+1))
+                        {
+                            oIntTmp = i;
+                            break;
+                        }
+                }
+                if(i==num.size()-1) // end of the vector
+                {
+                    if(num.at(i) > num.at(i-1))
+                        {
+                            oIntTmp = i;
+                            break;
+                        }
+                }
+                if(i > 0 && i < num.size())
+                {
+                    if(num.at(i) > num.at(i-1) && num.at(i) > num.at(i+1))
+                        {
+                            oIntTmp = i;
+                            break;
+                        }
+                }
+                
+            }
+        return oIntTmp;
+    }
+};
