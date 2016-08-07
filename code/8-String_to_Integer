@@ -1,0 +1,64 @@
+#include <string>
+
+class Solution {
+public:
+    int myAtoi(string str) {
+        long long total = 0;
+        bool isNegative = false;
+        int i = 0;
+        
+        if(str == "")
+            return 0;
+            
+        trim_inplace(str);
+        
+        if(str[0] == '-')
+        {
+            isNegative = true;
+            i = 1;
+        }
+        
+        if(str[0] == '+')
+            i = 1;
+        
+        for(; i < str.size(); i++){
+            if(!isdigit(str[i])) break;
+            total = total * 10 + (long long)str[i] - 48;
+            if(total > 2147483647 && !isNegative){
+                total = 2147483647;
+                break;
+            }
+            if(-total < -2147483648){
+                total = -2147483648;
+                break;
+            }
+        }
+        
+        if(isNegative) {
+            total *= -1;
+        }
+        
+        return total;
+    }
+    
+    string& trim_right_inplace(
+      std::string&       s,
+      const std::string& delimiters = " \f\n\r\t\v" )
+    {
+      return s.erase( s.find_last_not_of( delimiters ) + 1 );
+    }
+    
+    string& trim_left_inplace(
+      std::string&       s,
+      const std::string& delimiters = " \f\n\r\t\v" )
+    {
+      return s.erase( 0, s.find_first_not_of( delimiters ) );
+    }
+    
+    string& trim_inplace(
+      std::string&       s,
+      const std::string& delimiters = " \f\n\r\t\v" )
+    {
+      return trim_left_inplace( trim_right_inplace( s, delimiters ), delimiters );
+    }
+};
